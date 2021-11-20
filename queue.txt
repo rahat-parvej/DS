@@ -1,0 +1,109 @@
+#include<stdio.h>
+#define maxSize 10
+
+int Q[10];
+int itemCount = 0;
+int front = 0;
+int rear = -1;
+
+int isFull()
+{
+    if(itemCount >= 6)return 1;
+    else return 0;
+}
+
+int isEmpty()
+{
+    if(itemCount == 0)return 1;
+    else return 0;
+}
+
+void enQueue(int item)
+{
+    if(isFull())
+    {
+        printf("Queue is Full\n");
+        return;
+    }
+
+    if(rear == maxSize-1)
+    {
+        rear = -1;
+    }
+
+    rear++;
+    Q[rear] = item;
+    itemCount++;
+
+}
+
+void deQueue()
+{
+    if(isEmpty())
+    {
+        printf("Queue is Empty\n");
+        return;
+    }
+    int data = Q[front];
+    front++;
+    itemCount--;
+    if(front == maxSize)
+    {
+        front = 0;
+    }
+    printf("Item removed : %d\n", data);
+}
+
+void peek()
+{
+    if(isEmpty())
+    {
+        printf("Queue is Empty\n");
+    }
+    else
+    {
+        printf("The front item of this queue is : %d\n",  Q[front]);
+    }
+}
+
+int main()
+{
+    int opt=0,input;
+
+    while(opt!=6)
+    {
+        printf("Enter command for operation: 1.Enqueue 2.Dequeue 3.Peek 4.IsFull 5.IsEmpty 6.Exit \n");
+        scanf("%d",&opt);
+
+        if(opt==1)
+        {
+            printf("Enter number to Enqueue ");
+            scanf("%d",&input);
+            enQueue(input);
+        }
+        else if(opt==2)
+        {
+            deQueue();
+        }
+        else if(opt==3)
+        {
+            peek();
+        }
+        else if(opt==4)
+        {
+            if(isFull())
+                printf("Queue is Full\n");
+            else
+                printf("Queue is not Full \n");
+        }
+        else if(opt==5)
+        {
+            if(isEmpty())
+                printf("Queue is empty \n");
+            else
+                printf("Queue is not empty \n");
+        }
+
+    }
+    return 0;
+}

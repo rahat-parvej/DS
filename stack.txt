@@ -1,0 +1,96 @@
+#include<stdio.h>
+
+int stk[11];
+int top = -1;
+
+int isEmpty()
+{
+    if(top == -1)return 1;
+    else return 0;
+}
+
+int isFull()
+{
+    if(top == 10)return 1;
+    else return 0;
+}
+
+void push(int item)
+{
+    if(isFull())
+    {
+        printf("Stack is Full\n");
+        return;
+    }
+    top++;
+    stk[top] = item;
+}
+
+void pop()
+{
+    if(top == -1)
+    {
+        printf("Stack is Empty\n");
+        return;
+    }
+    printf("Popped number is : %d\n",stk[top]);
+    top--;
+}
+
+void peek()
+{
+    if(top == -1)
+    {
+        printf("Stack is Empty\n");
+        return;
+    }
+    else
+    {
+        printf("The top of the item of this Stack : %d\n", stk[top]);
+    }
+}
+
+
+int main()
+{
+    int opt=0,n,t;
+
+
+    while(opt!=6)
+    {
+        printf("Enter Command: 1.Push 2.Pop 3.Peek 4.IsFUll 5.IsEmpty\n");
+        scanf("%d",&opt);
+
+        if(opt==1)
+        {
+            printf("Enter number to push: ");
+            scanf("%d",&n);
+            push(n);
+        }
+        else if(opt==2)
+        {
+            pop();
+        }
+        else if(opt==3)
+        {
+            peek();
+        }
+        else if(opt==4)
+        {
+            if(isFull())
+                printf("Stack is Full\n");
+            else
+                printf("Stack is empty\n");
+        }
+        else if(opt==5)
+        {
+            if(isEmpty())
+                printf("Stack is empty");
+            else
+                printf("Stack is not empty");
+        }
+    }
+
+    return 0;
+}
+

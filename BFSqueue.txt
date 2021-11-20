@@ -1,0 +1,109 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+#define initial 1
+#define waiting 2
+#define visited 3
+
+int n;
+int adj[100][100];
+int state[100];
+void CreateGraph();
+void BFS(int source);
+
+int queue[100], front = -1,rear = -1;
+void InsertQueue(int vertex);
+int DeleteQueue();
+int IsEmptyQueue();
+
+int main()
+{
+    CreateGraph();
+    int i;
+    for(i=0;i<n;i++)
+    {
+        state[i] = initial;
+    }
+    printf("Enter the source node: ");
+    int source;
+    scanf("%d", &source);
+    BFS(source-1);
+
+    return 0;
+}
+
+
+void BFS(int source)
+{
+    int i;
+    InsertQueue(source);
+    state[source] = waiting;
+    printf("The nodes reachable from %d are: ", source+1);
+    while(!IsEmptyQueue())
+    {
+        source = DeleteQueue( );
+        printf("%d ",source+1);
+        state[source] = visited;
+        for(i=0; i<n; i++)
+        {
+            if(adj[source][i] == 1 && state[i] == initial)
+            {
+                InsertQueue(i);
+                state[i] = waiting;
+            }
+        }
+    }
+    printf("\n");
+}
+
+void InsertQueue(int vertex)
+{
+    if(rear == 100-1)
+        printf("Queue Overflow\n");
+    else
+    {
+        if(front == -1)
+            front = 0;
+        rear = rear+1;
+        queue[rear] = vertex ;
+    }
+}
+
+int IsEmptyQueue()
+{
+    if(front == -1 || front > rear)
+        return 1;
+    else
+        return 0;
+}
+
+int DeleteQueue()
+{
+    int delete_item;
+    if(front == -1 || front > rear)
+    {
+        printf("Queue Underflow\n");
+        exit(1);
+    }
+    delete_item = queue[front];
+    front = front+1;
+    return delete_item;
+}
+
+void CreateGraph()
+{
+    printf("Enter number of vertices : ");
+    scanf("%d",&n);
+
+    printf("Enter the graph as adjacency matrix: \n");
+    int i, j;
+    for(i=0; i<n; i++)
+    {
+        for(j=0; j<n; j++)
+        {
+            scanf("%d", &adj[i][j]);
+        }
+    }
+
+
+}

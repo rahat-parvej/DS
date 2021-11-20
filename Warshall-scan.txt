@@ -1,0 +1,52 @@
+#include<stdio.h>
+#define V 5
+
+void Warshall(int adjMatrix[][V], int pathMatrix[][V]);
+void PrintMatrix(int Matrix[][V]);
+
+int main()
+{
+    int pathMatrix[V][V];
+    int adjMatrix[V][V];
+
+    printf("Enter the adjacency matrix: \n");
+    int i, j;
+    for(i=0; i<V; i++)
+        for(j=0; j<V; j++)
+            scanf("%d", &adjMatrix[i][j]);
+
+    Warshall(adjMatrix, pathMatrix);
+
+    printf("The path matrix: \n");
+    PrintMatrix(pathMatrix);
+
+    return 0;
+}
+
+void Warshall(int adjMatrix[][V], int pathMatrix[][V])
+{
+    int i, j, k;
+
+    for(i=0; i<V; i++)
+        for(j=0; j<V; j++)
+            pathMatrix[i][j] = adjMatrix[i][j];
+
+    for(k=0; k<V; k++)
+        for(i=0; i<V; i++)
+            for(j=0; j<V; j++)
+                pathMatrix[i][j] = pathMatrix[i][j] || (pathMatrix[i][k] && pathMatrix[k][j]);
+}
+
+void PrintMatrix(int Matrix[][V])
+{
+    int i, j;
+    for(i=0; i<V; i++)
+    {
+        for(j=0; j<V; j++)
+        {
+            printf("%d ", Matrix[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
