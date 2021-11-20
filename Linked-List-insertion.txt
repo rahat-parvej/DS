@@ -1,0 +1,68 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node
+{
+    int data;
+    struct Node *next;
+};
+
+void append(struct Node** head_ref, int new_data)
+{
+    struct Node* new_node = (struct Node*) malloc(sizeof(struct Node));
+    struct Node *last = *head_ref; /* used in step 5*/
+    new_node->data = new_data;
+    new_node->next = NULL;
+    if (*head_ref == NULL)
+    {
+        *head_ref = new_node;
+        return;
+    }
+    while (last->next != NULL)
+        last = last->next;
+    last->next = new_node;
+    return;
+}
+
+void printList(struct Node *node)
+{
+    while (node != NULL)
+    {
+        printf(" %d ", node->data);
+        node = node->next;
+    }
+}
+
+int main()
+{
+    struct Node* head = NULL;
+    int n,x,i,opt=0;
+
+    while(opt!=3)
+    {
+        printf("Enter 1 for inserting numbers\n");
+        printf("Enter 2 for displaying linked list\n");
+        printf("Enter 3 to exit \n");
+
+        scanf("%d",&opt);
+        if(opt==1)
+        {
+            printf("Enter number of elements to insert: ");
+            scanf("%d",&n);
+
+            printf("Enter numbers: \n");
+            for(i=0; i<n; i++)
+            {
+                scanf("%d",&x);
+                append(&head, x);
+            }
+        }
+        else if(opt==2)
+        {
+            printf("\nCreated Linked list is: ");
+            printList(head);
+            printf("\n");
+        }
+    }
+    return 0;
+}
